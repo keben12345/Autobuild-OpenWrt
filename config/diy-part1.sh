@@ -14,7 +14,7 @@ chmod +x $GITHUB_WORKSPACE/config/files/my-script/files/my_script
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/config/files/ipv6-helper package/xiaouex/ipv6-helper
 mv -f $GITHUB_WORKSPACE/config/files/my-script package/xiaouex/my-script
-
+mv -f $GITHUB_WORKSPACE/config/files/openwrt-smartdns package/xiaouex/openwrt-smartdns
 
 cp $GITHUB_WORKSPACE/config/files/bbr3/601-*.patch target/linux/generic/hack-6.12
 cp $GITHUB_WORKSPACE/config/files/bbr3/501-*.patch package/network/utils/iproute2/patches
