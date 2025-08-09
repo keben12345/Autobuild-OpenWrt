@@ -222,9 +222,8 @@ jobs:
       with:
         repo: xiaouex/Autobuild-OpenWrt
         keep_latest: 5
-        delete_tag_pattern:
         delete_type: 'release'
-        target_branch: 'main'
+        target_branch: 'mixup'
         delete_tags: true
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
