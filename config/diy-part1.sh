@@ -24,4 +24,8 @@ cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0002-sched-ext-coexistence-fix.
 cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0002-sched-fair-Prefer-full-idle-SMT-cores.patch target/linux/generic/hack-6.12
 echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.12
 echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.12
+
+echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
+echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/mediatek/filogic/config-6.12
+
 sed -i '/label = "bl2";/,/};/ { /read-only;/d }' target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-nand.dtso
