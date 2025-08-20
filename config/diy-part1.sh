@@ -21,4 +21,5 @@ cp $GITHUB_WORKSPACE/config/files/bbr3/502-*.patch package/network/utils/iproute
 cp $GITHUB_WORKSPACE/config/files/bbr3/500-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0001-linux6.12.37-bore-6.1.1.patch target/linux/generic/hack-6.12
 cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0002-sched-ext-coexistence-fix.patch target/linux/generic/pending-6.12
+echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.12
 sed -i '/label = "bl2";/,/};/ { /read-only;/d }' target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-nand.dtso
