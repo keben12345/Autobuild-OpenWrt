@@ -19,9 +19,12 @@ cp $GITHUB_WORKSPACE/config/files/bbr3/601-*.patch target/linux/generic/hack-6.1
 cp $GITHUB_WORKSPACE/config/files/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/config/files/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/config/files/bbr3/500-*.patch package/network/utils/iproute2/patches
-cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0001-linux6.12.37-bore-6.3.2.patch target/linux/generic/hack-6.12
-cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0002-sched-ext-coexistence-fix.patch target/linux/generic/pending-6.12
-cp $GITHUB_WORKSPACE/config/files/BORE-TEST/6.12/0002-sched-fair-Prefer-full-idle-SMT-cores.patch target/linux/generic/hack-6.12
+
+git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
+
+cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
+cp $GITHUB_WORKSPACE/config/files/BORE/patches/additions/*.patch target/linux/generic/pending-6.12
+
 echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.12
 echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.12
 
