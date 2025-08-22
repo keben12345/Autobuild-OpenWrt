@@ -1,12 +1,17 @@
 
-name: OpenWrt-Builder
+name: Delete Old Tags
 
 on:
   repository_dispatch:
   workflow_dispatch:
-    inputs:
+   
+jobs:
+  build:
+    runs-on: ubuntu-22.04
 
-    - name: Delete Tags without Release
+    steps:
+      
+   - name: Delete Tags without Release
       uses: fabriziocacicia/delete-tags-without-release-action@v0.1.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
