@@ -31,9 +31,9 @@ A template for building OpenWrt with GitHub Actions
 |->本项目
 
   |->.github ---->放置action运行脚本。
-  
+   
   |->config ----->放置所有需要的文件。
-  
+   
     |->files ---->放置你要添加的文件。
 	
 	|->rax3000m-->放置rax3000m的.config文件。
