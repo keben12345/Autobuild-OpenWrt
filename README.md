@@ -28,7 +28,7 @@ A template for building OpenWrt with GitHub Actions
 
 目录：
 
-本项目
+|->本项目
 
   |->.github ---->放置action运行脚本。
   
