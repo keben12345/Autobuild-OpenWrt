@@ -25,4 +25,4 @@ define Host/Patch\
 			{ echo "Patch failed! Please fix: $(notdir $p)!" ; exit 1 ; } ; \
 		) \
 	))\
-endef' package/lang/rust/Makefile
+endef' packages/lang/rust/Makefile
