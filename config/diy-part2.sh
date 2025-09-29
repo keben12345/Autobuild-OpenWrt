@@ -13,4 +13,16 @@ sed -i '/PKG_SOURCE_VERSION/d' feeds/packages/smpackage/smartdns/Makefile
 ./scripts/feeds install -a 
 sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
 
-git cherry-pick adcfa66a066df5e2b32d91742287b13b5a11cff2
+sed -i '87i\
+define Host/Patch\
+	$(if $(HOST_QUILT),rm -rf $(HOST_BUILD_DIR)/patches; mkdir -p $(HOST_BUILD_DIR)/patches)\
+	$(if $(HOST_QUILT),$(call PatchDir/Quilt,$(HOST_BUILD_DIR),$(HOST_PATCH_DIR),))\
+	$(if $(HOST_QUILT),touch $(HOST_BUILD_DIR)/.quilt_used)\
+	$(if $(HOST_QUILT),,$(if $(wildcard $(HOST_PATCH_DIR)/*.patch), \
+		$(foreach p,$(sort $(wildcard $(HOST_PATCH_DIR)/*.patch)), \
+			echo "Applying patch $(notdir $p)" ; \
+			$(PATCH) -f -p1 -d $(HOST_BUILD_DIR) < $p || \
+			{ echo "Patch failed! Please fix: $(notdir $p)!" ; exit 1 ; } ; \
+		) \
+	))\
+endef\' feeds/packages/lang/rust/Makefile
