@@ -15,11 +15,32 @@ mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/config/files/ipv6-helper package/xiaouex/ipv6-helper
 mv -f $GITHUB_WORKSPACE/config/files/my-script package/xiaouex/my-script
 
-cp $GITHUB_WORKSPACE/config/files/bbr3/601-*.patch target/linux/generic/hack-6.12
-cp $GITHUB_WORKSPACE/config/files/bbr3/501-*.patch package/network/utils/iproute2/patches
-cp $GITHUB_WORKSPACE/config/files/bbr3/502-*.patch package/network/utils/iproute2/patches
-cp $GITHUB_WORKSPACE/config/files/bbr3/500-*.patch package/network/utils/iproute2/patches
+#Add BBR V3
 
+# 配置 Git 用户信息（GitHub Actions 中必需）
+git config --global user.name "xiaouex"
+git config --global user.email "xiaouex@live.com"
+
+# 添加上游仓库（fork 源）
+UPSTREAM_URL="https://github.com/rockdrilla/fork.openwrt.git"
+UPSTREAM_REMOTE="upstream-temp"
+
+# 添加临时远程
+git remote add "$UPSTREAM_REMOTE" "$UPSTREAM_URL"
+
+# 获取上游提交
+git fetch "$UPSTREAM_REMOTE" e2fa1c32f89ec0bfb726ceb96294b6b957b32d67
+git fetch "$UPSTREAM_REMOTE" a7ffdcae8e96eb6dece70622de121f97ff55bfab
+
+# Cherry-pick 两个 commit
+git cherry-pick e2fa1c32f89ec0bfb726ceb96294b6b957b32d67
+git cherry-pick a7ffdcae8e96eb6dece70622de121f97ff55bfab
+
+# 删除临时远程
+git remote remove "$UPSTREAM_REMOTE"
+
+
+#Add BORE Scheduler
 git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
 
 cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
@@ -32,5 +53,7 @@ echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.12
 
 echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
 echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/mediatek/filogic/config-6.12
+
+
 
 sed -i '/label = "bl2";/,/};/ { /read-only;/d }' target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-nand.dtso
