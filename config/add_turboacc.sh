@@ -61,31 +61,7 @@ fi
 
 cp -r "$TMPDIR/turboacc/turboacc/luci-app-turboacc" "$TMPDIR/turboacc/luci-app-turboacc"
 rm -rf "$TMPDIR/turboacc/turboacc"
-cp -r "$TMPDIR/package/nft-fullcone" "$TMPDIR/turboacc/nft-fullcone" || exit 1
-if [ "$NO_SFE" = false ]; then
-    cp -r "$TMPDIR/package/shortcut-fe" "$TMPDIR/turboacc/shortcut-fe"
-fi
 
-for kernel_version in $kernel_versions; do
-    patch_953_path="./target/linux/generic/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch"
-    patch_613_path="./target/linux/generic/pending-$kernel_version/613-netfilter_optional_tcp_window_check.patch"
-    if [ "$kernel_version" = "6.12" ] || [ "$kernel_version" = "6.6" ] || [ "$kernel_version" = "6.1" ] || [ "$kernel_version" = "5.15" ]; then
-        patch_952_path="./target/linux/generic/hack-$kernel_version/952-add-net-conntrack-events-support-multiple-registrant.patch"
-        patch_952="952-add-net-conntrack-events-support-multiple-registrant.patch"
-    elif [ "$kernel_version" = "5.10" ]; then
-        patch_952_path="./target/linux/generic/hack-$kernel_version/952-net-conntrack-events-support-multiple-registrant.patch"
-        patch_952="952-net-conntrack-events-support-multiple-registrant.patch"
-    else
-        echo "Unsupported kernel version: $kernel_version"
-        exit 1
-    fi
-
-    for file_path in "$patch_952_path" "$patch_953_path" "$patch_613_path"; do
-        if [ -a "$file_path" ]; then
-            echo "$file_path already exists, delete."
-            rm -rf "$file_path"
-        fi
-    done
 
 
     if ! grep -q "CONFIG_NF_CONNTRACK_CHAIN_EVENTS" "./target/linux/generic/config-$kernel_version"; then
@@ -99,10 +75,8 @@ done
 cp -r "$TMPDIR/turboacc" "./package/turboacc"
 
 FIREWALL4_VERSION=$(grep -o 'PKG_SOURCE_VERSION:=.*' ./package/network/config/firewall4/Makefile | cut -d '=' -f 2)
-NFTABLES_VERSION=$(grep -o 'PKG_VERSION:=.*' ./package/network/utils/nftables/Makefile | cut -d '=' -f 2)
-LIBNFTNL_VERSION=$(grep -o 'PKG_VERSION:=.*' ./package/libs/libnftnl/Makefile | cut -d '=' -f 2)
 
-rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/network/utils/nftables
+rm -rf  ./package/network/config/firewall4 
 
 if ! [ -d "$TMPDIR/package/firewall4-$FIREWALL4_VERSION" ]; then
     echo "firewall4 version $FIREWALL4_VERSION not found, using latest version"
