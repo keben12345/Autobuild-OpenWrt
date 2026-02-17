@@ -4,8 +4,8 @@ rm -rf feeds/packages/smpackage/smartdns
 git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
 git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
 
-git clone --depth 1 https://github.com/pymumu/luci-app-smartdns feeds/packages/smpackage/luci-app-smartdns
-git clone --depth 1 https://github.com/pymumu/openwrt-smartdns feeds/packages/smpackage/smartdns
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+
 sed -i '/PKG_MIRROR_HASH/d' feeds/packages/smpackage/smartdns/Makefile
 sed -i '/PKG_SOURCE_VERSION/d' feeds/packages/smpackage/smartdns/Makefile
 
