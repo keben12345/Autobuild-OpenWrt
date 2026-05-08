@@ -1,8 +1,9 @@
 
 #!/bin/bash
 
-# 获取第一个参数，默认为 'default'
+# 获取参数，默认为 'default'
 MODE="${1:-default}"
+DEVICE="$MY_DEVICE"
 
 case "$MODE" in
 
@@ -11,7 +12,6 @@ diy1|-d1|--diy1)
 #↓↓↓↓↓↓↓↓↓↓↓↓从这里开始是运行在首次获取feeds前↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 
-DEVICE="$MY_DEVICE"
 # Add feed sources
 sed -i '1i src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
 #sed -i '1i src-git jell https://github.com/kenzok8/jell' feeds.conf.default
@@ -78,7 +78,7 @@ diy3|-d3|--diy3)
 
 
 
-DEVICE="$MY_DEVICE"
+
 # 修改默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 #修正连接数（by ベ七秒鱼ベ）
