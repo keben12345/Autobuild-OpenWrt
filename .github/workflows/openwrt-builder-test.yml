@@ -1,5 +1,5 @@
 
-name: OpenWrt-Builder
+name: OpenWrt-Builder-test
 
 on:
   repository_dispatch:
