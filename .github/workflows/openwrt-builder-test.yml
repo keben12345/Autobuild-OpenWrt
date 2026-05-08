@@ -70,6 +70,7 @@ jobs:
       run: |
        echo "DIY_SH=config/diy.sh" >> $GITHUB_ENV
        echo "CONFIG_FILE=config/${{inputs.DEVICE}}/.config" >> $GITHUB_ENV 
+       echo "MY_DEVICE=${{inputs.DEVICE}}" >> $GITHUB_ENV
        if [[ "${{inputs.DEVICE}}" == "rax3000m" ]];then
          echo "MIHOMO=mihomo-linux-arm64-alpha-*.gz" >> $GITHUB_ENV
        elif [[ "${{inputs.DEVICE}}" == "x86"  ]];then
@@ -96,8 +97,7 @@ jobs:
         chmod +x $DIY_SH
         cd openwrt
         "$GITHUB_WORKSPACE/$DIY_SH" -d1
-      env:
-        MY_DEVICE: ${{inputs.DEVICE}}
+      
         
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -115,8 +115,7 @@ jobs:
         chmod +x $DIY_SH
         cd openwrt
         "$GITHUB_WORKSPACE/$DIY_SH" -d3
-      env:
-        MY_DEVICE: ${{inputs.DEVICE}}
+     
         
         
     - name: Get mihomo alpha core
