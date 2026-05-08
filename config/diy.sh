@@ -56,9 +56,9 @@ diy2|-d2|--diy2)
 
 #添加我的插件
 mkdir -p package/xiaouex
+chmod +x $GITHUB_WORKSPACE/config/files/my-script/files/my_script
 mv -f $GITHUB_WORKSPACE/config/files/ipv6-helper package/xiaouex/ipv6-helper
 mv -f $GITHUB_WORKSPACE/config/files/my-script package/xiaouex/my-script
-chmod +x $GITHUB_WORKSPACE/config/files/my-script/files/my_script
 
 git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
 git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
