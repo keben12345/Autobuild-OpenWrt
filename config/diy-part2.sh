@@ -6,6 +6,6 @@ git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/
 #git clone --depth 1 https://github.com/sbwml/v2ray-geodata feeds/smpackage/v2ray-geodata
 ./scripts/feeds update -a
 ./scripts/feeds install -a 
-sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
+#sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
 
 
