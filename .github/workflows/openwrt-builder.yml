@@ -21,7 +21,7 @@ on:
         default: true
         type: boolean    
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_URL: https://github.com/chasey-dev/immortalwrt-mt798x-rebase
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   UPLOAD_BIN_DIR: false
