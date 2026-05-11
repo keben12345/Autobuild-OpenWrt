@@ -22,7 +22,7 @@ on:
         type: boolean    
 env:
   REPO_URL: https://github.com/chasey-dev/immortalwrt-mt798x-rebase
-  REPO_BRANCH: master
+  REPO_BRANCH: 25.12
   FEEDS_CONF: feeds.conf.default
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
