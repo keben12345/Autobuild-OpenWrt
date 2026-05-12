@@ -43,16 +43,16 @@ git remote remove "$UPSTREAM_REMOTE"
 #Add BORE Scheduler
 git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
 
-cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.18-bore/*.patch target/linux/generic/hack-6.18
-cp $GITHUB_WORKSPACE/config/files/BORE/patches/additions/*.patch target/linux/generic/pending-6.18
+cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.18-bore/*.patch target/linux/generic/hack-6.12
+cp $GITHUB_WORKSPACE/config/files/BORE/patches/additions/*.patch target/linux/generic/pending-6.12
 
 rm -rf $GITHUB_WORKSPACE/config/files/BORE
 
-echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.18
-echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.18
+echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.12
+echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.12
 
-echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.18
-echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/mediatek/filogic/config-6.18
+echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
+echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/mediatek/filogic/config-6.12
 
 
 
