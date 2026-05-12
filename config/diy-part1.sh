@@ -43,7 +43,7 @@ git remote remove "$UPSTREAM_REMOTE"
 #Add BORE Scheduler
 git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
 
-cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.18-bore/*.patch target/linux/generic/hack-6.12
+cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
 cp $GITHUB_WORKSPACE/config/files/BORE/patches/additions/*.patch target/linux/generic/pending-6.12
 
 rm -rf $GITHUB_WORKSPACE/config/files/BORE
