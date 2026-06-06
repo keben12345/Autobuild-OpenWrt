@@ -77,9 +77,9 @@ function task_step_4() {
 
     cd $GITHUB_WORKSPACE
     echo -e "预置Clash内核"
-    mkdir -p openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
-    core_path="openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
-    geo_path="openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
+    mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
+    core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
+    geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
     cd $GITHUB_WORKSPACE/clash-core
     gunzip -c $MIHOMO  > $core_path/clash_meta

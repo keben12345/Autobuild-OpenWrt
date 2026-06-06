@@ -68,18 +68,18 @@ function task_step_3() {
 function task_step_4() {
     echo "正在执行 [步骤 4]: 添加mihomo smart内核..."
     cd $GITHUB_WORKSPACE
-    MIHOMO="mihomo-linux-amd64-alpha-smart-*.gz"
+    MIHOMO="mihomo-linux-arm64-alpha-smart-*.gz"
     # 下载匹配通配符的文件（自动处理最新hash）
     gh release download Prerelease-Alpha \
         --repo vernesong/mihomo \
-        --pattern "mihomo-linux-amd64-alpha-smart-*.gz" \
+        --pattern "mihomo-linux-arm64-alpha-smart-*.gz" \
         --dir $GITHUB_WORKSPACE/clash-core
 
     cd $GITHUB_WORKSPACE
     echo -e "预置Clash内核"
-    mkdir -p openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
-    core_path="openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
-    geo_path="openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
+    mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
+    core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
+    geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
     cd $GITHUB_WORKSPACE/clash-core
     gunzip -c $MIHOMO  > $core_path/clash_meta
