@@ -41,7 +41,7 @@ function task_step_1() {
 function task_step_2() {
 
     echo "正在执行 [步骤 2]: 添加feeds源..."
-    cd openwrt
+    cd $GITHUB_WORKSPACE/openwrt
     sed -i '1i src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
     #sed -i '1i src-git jell https://github.com/kenzok8/jell' feeds.conf.default
     sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
@@ -53,7 +53,7 @@ function task_step_2() {
 function task_step_3() {
 
     echo "正在执行 [步骤 3]: 前置条件与参数校验..."
-    cd openwrt
+    cd $GITHUB_WORKSPACE/openwrt
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
     #rm -rf feeds/smpackage/v2ray-geodata
