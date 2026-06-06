@@ -93,7 +93,7 @@ function task_step_4() {
 # 分函数 5：合入自定义补丁
 function task_step_5() {
     echo "正在执行 [步骤 5]: 合入自定义补丁..."
-    
+    cd $GITHUB_WORKSPACE/openwrt
     #Add BBR V3
 
     # 配置 Git 用户信息（GitHub Actions 中必需）
@@ -111,7 +111,6 @@ function task_step_5() {
     # 删除临时远程
     git remote remove "$UPSTREAM_REMOTE"
 
-    cd $GITHUB_WORKSPACE/openwrt
     #Add BORE Scheduler
     git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
