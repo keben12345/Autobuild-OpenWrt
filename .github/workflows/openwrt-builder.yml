@@ -14,16 +14,8 @@ on:
           - 'x86'
           - 'rax3000m'
         default: 'x86'
-      
-      MIHOMO: 
-        description: "是否集成MIHOMO内核？" 
-        required: true
-        default: true
-        type: boolean    
+         
 env:
-  REPO_URL: https://github.com/chasey-dev/immortalwrt-mt798x-rebase
-  REPO_BRANCH: 25.12
-  FEEDS_CONF: feeds.conf.default
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -65,94 +57,25 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-
-    - name: Set ENV
-      run: |
-       echo "DIY_P1_SH=config/diy-part1.sh" >> $GITHUB_ENV
-       echo "DIY_P2_SH=config/diy-part2.sh" >> $GITHUB_ENV
-       echo "DIY_P3_SH=config/diy-part3.sh" >> $GITHUB_ENV
-       echo "CONFIG_FILE=config/${{inputs.DEVICE}}/.config" >> $GITHUB_ENV 
-       if [[ "${{inputs.DEVICE}}" == "rax3000m" ]];then
-         echo "MIHOMO=mihomo-linux-arm64-alpha-*.gz" >> $GITHUB_ENV
-       elif [[ "${{inputs.DEVICE}}" == "x86"  ]];then
-         echo "MIHOMO=mihomo-linux-amd64-compatible-alpha-*.gz" >> $GITHUB_ENV
-       fi
-       
-        
-    - name: Clone source code
-      working-directory: /workdir
-      run: |
-        df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-              
+             
     - name: Uses toolchain Cache
       uses: klever1988/cachewrtbuild@main
       with:
          ccache: 'true'
          mixkey: '${{ inputs.DEVICE }}'
          prefix: 'openwrt'
-    
-    - name: Load custom feeds
+
+    - name: Run SET UP Script
       run: |
-        chmod +x $DIY_P1_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
+        if [ "${{ inputs.DEVICE }}" = "x86" ]; then
+          chmod +x ./config/SETUP_x86.sh
+          ./config/SETUP_x86.sh -e
+        elif [ "${{ inputs.DEVICE }}" = "rax3000m" ]; then
+          chmod +x ./config/SETUP_rax3000m.sh
+         ./config/SETUP_rax3000m.sh -e
+        fi
       env:
-        MY_DEVICE: ${{inputs.DEVICE}}
-        
-    - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
-        
-    - name: Install feeds
-      run: |
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
-
-    - name: Load custom configuration
-      run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P3_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P3_SH
-      env:
-        MY_DEVICE: ${{inputs.DEVICE}}
-        
-        
-    - name: Get mihomo alpha core
-      if: ${{inputs.MIHOMO }}
-      uses: robinraju/release-downloader@v1
-      with:
-         repository: 'MetaCubeX/mihomo'
-         tag: 'Prerelease-Alpha'
-         fileName: '${{env.MIHOMO}}'
-         out-file-path: 'clash-core'
-         
-    - name: Preset mihomo core   
-      if: ${{inputs.MIHOMO }}
-      run: |
-        echo -e "预置Clash内核"
-        mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
-        core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
-        goe_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
-
-        cd $GITHUB_WORKSPACE/clash-core
-        gunzip -c $MIHOMO  > $core_path/clash_meta
-        wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $goe_path/GeoIP.dat
-        wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $goe_path/GeoSite.dat
-        chmod +x $core_path/clash*
-
-        
-    - name: Download package
-      id: package
-      run: |
-        cd openwrt
-        make defconfig
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Compile the firmware
       id: compile
