@@ -57,14 +57,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-             
-    - name: Uses toolchain Cache
-      uses: klever1988/cachewrtbuild@main
-      with:
-         ccache: 'true'
-         mixkey: '${{ inputs.DEVICE }}'
-         prefix: 'openwrt'
-
+            
     - name: Run SET UP Script
       run: |
         if [ "${{ inputs.DEVICE }}" = "x86" ]; then
@@ -77,6 +70,13 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Uses toolchain Cache
+      uses: klever1988/cachewrtbuild@main
+      with:
+         ccache: 'true'
+         mixkey: '${{ inputs.DEVICE }}'
+         prefix: 'openwrt'
+      
     - name: Compile the firmware
       id: compile
       run: |
