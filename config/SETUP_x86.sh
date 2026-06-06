@@ -36,7 +36,6 @@ function task_step_1() {
 
     echo "✔ [步骤 1] 初始化工作环境，克隆源码 执行完毕。"
 }
-}
 
 # 分函数 2：添加feeds源
 function task_step_2() {
