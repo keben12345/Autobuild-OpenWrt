@@ -127,6 +127,7 @@ function task_step_6() {
     sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
     cd $GITHUB_WORKSPACE
     mv config/rax3000m/.config openwrt/.config
+    cd $GITHUB_WORKSPACE/openwrt
     #修改默认主题
     sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
     #修正连接数（by ベ七秒鱼ベ）
