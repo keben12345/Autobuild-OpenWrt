@@ -153,7 +153,7 @@ function task_step_6() {
 function task_step_7() {
 
     echo "正在执行 [步骤 7]: 下载编译所需文件..."
-    cd openwrt
+    cd $GITHUB_WORKSPACE/openwrt
     make defconfig
     make download -j8
     find dl -size -1024c -exec ls -l {} \;
