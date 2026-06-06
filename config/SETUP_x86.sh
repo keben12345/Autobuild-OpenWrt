@@ -111,7 +111,7 @@ function task_step_5() {
     # 删除临时远程
     git remote remove "$UPSTREAM_REMOTE"
 
-
+    cd $GITHUB_WORKSPACE/openwrt
     #Add BORE Scheduler
     git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
