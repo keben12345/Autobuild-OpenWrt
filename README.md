@@ -12,6 +12,7 @@ A template for building OpenWrt with GitHub Actions
 
 当前rax3000m固件使用来自https://github.com/chasey-dev/immortalwrt-mt798x-rebase 的源码，
 使用闭源驱动，支持MTK硬件NAT和硬件加速。
+
 **turboacc仅开启BBR算法可用，请勿打开其中的硬件加速选项，mtk硬件加速已经默认开启，与turboacc中的硬件加速以及防火墙中的路由/NAT 卸载功能冲突，打开会无限重启。**。
 
 ## Usage
