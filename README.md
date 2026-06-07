@@ -9,26 +9,23 @@
 A template for building OpenWrt with GitHub Actions
 
 ## My default config
-项目release的固件除openwrt默认包含的组件外还含有以下内容：ipv6-helper、luci-app-filetransfer、BORE CPU Scheduler、SmartDNS、OPENCLASH（内置mihomo alpha内核）、DiskMan、TurboACC（支持firewall4）、BBR3补丁（有效性待确认）、taskplan（任务计划）、my-script（一个启动脚本，为了切换qdisc算法）、luci-app-temp-status（温度）、luci-theme-argon（主题）、重启插件、关机插件。
+项目release的固件除openwrt默认包含的组件外还含有以下内容：ipv6-helper、luci-app-filetransfer、BORE CPU Scheduler、SmartDNS、~~OPENCLASH（内置mihomo alpha内核）~~passwall2、~~DiskMan~~、TurboACC（支持firewall4）、BBR3补丁、taskplan（任务计划）、~~my-script（一个启动脚本，为了切换qdisc算法）~~、luci-app-temp-status（温度）、luci-theme-argon（主题）、重启插件、关机插件。
+
+当前rax3000m固件使用来自(https://github.com/chasey-dev/immortalwrt-mt798x-rebase)的源码，使用闭源驱动，支持MTK硬件NAT和硬件加速<u>**（turboacc仅开启BBR算法可用，请勿打开其中的硬件加速选项，mtk硬件加速已经默认开启，与turboacc中的硬件加速以及防火墙中的路由/NAT 卸载功能冲突，打开会无限重启。）**</u>。
 
 ## Usage
 
-重要文件说明：
+编译固件岂是如此不便之物？
 
-*[diy-part1.sh] ---------->克隆openwrt源码后的第一个脚本，此时feeds文件夹为空，不能对feeds进行修改，但可以对openwrt源码进行修改，建议在这里加入你的feeds链接。
+编译脚本已重构焕新，抛弃原本的分开的三个自定义脚本，将大部分编译前准备流程合入一个脚本中，只需上传你的.config，
 
-*[diy-part2.sh] ---------->更新和安装feeds后的脚本，可以对feeds进行修改，修改feeds后记得再次执行update和install，建议在这里加入feeds里没有但你想要额外添加的插件。
+并按自己的想法修改对应机型（仅支持rax3000m和x86)的脚本（指本分支config目录下的SETUP_rax3000m.sh和SETUP_x86.sh）。
 
-*[diy-part3.sh] ---------->编译前的最后一个脚本，此时可以对整个要编译的源码进行修改，建议在这里添加你对openwrt源码的自定义设置。
-
-*[.config] --------------->OpenWrt构建系统的主要配置文件，从make menuconfig生成，你可以生成自己的配置并上传代替本项目中的配置。（我的配置请看上方My default config的说明）
-
-*[perest-clash-core.sh] -->将mihomo内核放置到正确的位置的脚本，目前已弃置，所有脚本已集成到action脚本中。
-
+脚本各部分均有有中文注释，小学生也能轻松看懂。
 
 目录：
 
-|->本项目
+ |->本项目
 
 	|->.github ---->放置action运行脚本。
 
