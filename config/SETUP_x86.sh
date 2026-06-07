@@ -52,7 +52,7 @@ function task_step_2() {
 # 分函数 3：添加额外软件包，并执行 feeds install和feeds install
 function task_step_3() {
 
-    echo "正在执行 [步骤 3]: 前置条件与参数校验..."
+    echo "正在执行 [步骤 3]: 添加额外软件包，并执行 feeds install和feeds install..."
     cd $GITHUB_WORKSPACE/openwrt
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
