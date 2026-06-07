@@ -55,6 +55,9 @@ function task_step_3() {
     echo "正在执行 [步骤 3]: 前置条件与参数校验..."
     cd $GITHUB_WORKSPACE/openwrt
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
+
+    rm -rf feeds/smpackage/luci-app-smartdns
+    git clone --depth 1 https://github.com/pymumu/luci-app-smartdns feeds/smpackage/luci-app-smartdns
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
     #rm -rf feeds/smpackage/v2ray-geodata
     #git clone --depth 1 https://github.com/sbwml/v2ray-geodata feeds/smpackage/v2ray-geodata
