@@ -186,7 +186,8 @@ function main() {
     echo "::endgroup::"
 
     echo "::group::[4/7] Step 4: 添加mihomo smart内核"
-    task_step_4
+    #task_step_4
+    echo "no openclah,skip~"
     echo "::endgroup::"
 
     echo "::group::[5/7] Step 5: 合入自定义补丁"
