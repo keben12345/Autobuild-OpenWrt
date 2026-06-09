@@ -42,9 +42,11 @@ function task_step_2() {
 
     echo "正在执行 [步骤 2]: 添加feeds源..."
     cd $GITHUB_WORKSPACE/openwrt
+
     sed -i '1i src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
     #sed -i '1i src-git jell https://github.com/kenzok8/jell' feeds.conf.default
     sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
+    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
     ./scripts/feeds update -a
     echo "✔ [步骤 2] 添加feeds源 执行完毕。"
 }
@@ -54,7 +56,6 @@ function task_step_3() {
 
     echo "正在执行 [步骤 3]: 添加额外软件包，并执行 feeds install和feeds install..."
     cd $GITHUB_WORKSPACE/openwrt
-    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
     #rm -rf feeds/smpackage/v2ray-geodata
