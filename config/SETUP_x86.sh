@@ -15,8 +15,8 @@ set -euo pipefail
 # 您可以从 GitHub Actions 传入环境变量，或者在此处定义全局变量
 WORK_DIR="/workdir"
 REPO_DIR="$WORK_DIR/openwrt"
-readonly REPO_URL="https://github.com/chasey-dev/immortalwrt-mt798x-rebase"
-readonly REPO_BRANCH="25.12"
+readonly REPO_URL="https://github.com/immortalwrt/immortalwrt"
+readonly REPO_BRANCH="openwrt-25.12"
 # ==========================================
 # 分函数定义 (Sub-functions)
 # ==========================================
@@ -68,12 +68,7 @@ function task_step_3() {
 function task_step_4() {
     echo "正在执行 [步骤 4]: 添加mihomo smart内核..."
     cd $GITHUB_WORKSPACE
-    MIHOMO="mihomo-linux-amd64-alpha-smart-*.gz"
-    # 下载匹配通配符的文件（自动处理最新hash）
-    gh release download Prerelease-Alpha \
-        --repo vernesong/mihomo \
-        --pattern "mihomo-linux-amd64-alpha-smart-*.gz" \
-        --dir $GITHUB_WORKSPACE/clash-core
+    git clone -b core https://github.com/vernesong/OpenClash clash-core
 
     cd $GITHUB_WORKSPACE
     echo -e "预置Clash内核"
@@ -81,8 +76,9 @@ function task_step_4() {
     core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
     geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
-    cd $GITHUB_WORKSPACE/clash-core
-    gunzip -c $MIHOMO  > $core_path/clash_meta
+    cd $GITHUB_WORKSPACE/clash-core/dev/smart
+    gunzip -c clash-linux-amd64-v2.tar.gz > $core_path/clash_meta
+    wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $geo_path/GeoIP.dat
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $geo_path/GeoSite.dat
     chmod +x $core_path/clash*
