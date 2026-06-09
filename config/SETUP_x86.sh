@@ -79,7 +79,6 @@ function task_step_4() {
 
     cd $GITHUB_WORKSPACE/clash-core/dev/smart
     gunzip -c clash-linux-amd64-v2.tar.gz > $core_path/clash_meta
-    wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $geo_path/GeoIP.dat
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $geo_path/GeoSite.dat
     chmod +x $core_path/clash*
