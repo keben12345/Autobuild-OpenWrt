@@ -72,21 +72,16 @@ function task_step_3() {
 function task_step_4() {
     echo "正在执行 [步骤 4]: 添加mihomo smart内核..."
     cd $GITHUB_WORKSPACE
-    MIHOMO="mihomo-linux-arm64-alpha-smart-*.gz"
-    # 下载匹配通配符的文件（自动处理最新hash）
-    gh release download Prerelease-Alpha \
-        --repo vernesong/mihomo \
-        --pattern "mihomo-linux-arm64-alpha-smart-*.gz" \
-        --dir $GITHUB_WORKSPACE/clash-core
-
+    git clone -b core https://github.com/vernesong/OpenClash clash-core
+    
     cd $GITHUB_WORKSPACE
     echo -e "预置Clash内核"
     mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
     core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
     geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
-    cd $GITHUB_WORKSPACE/clash-core
-    gunzip -c $MIHOMO  > $core_path/clash_meta
+    cd $GITHUB_WORKSPACE/clash-core/dev/smart
+    gunzip -c clash-linux-arm64.tar.gz > $core_path/clash_meta
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $geo_path/GeoIP.dat
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $geo_path/GeoSite.dat
     chmod +x $core_path/clash*
@@ -189,9 +184,8 @@ function main() {
     task_step_3
     echo "::endgroup::"
 
-    echo "::group::[4/7] Step 4: 添加mihomo smart内核"
-    #task_step_4
-    echo "no openclah,skip~"
+    echo "::group::[4/7] Step 4: 添加mihomo内核"
+    task_step_4
     echo "::endgroup::"
 
     echo "::group::[5/7] Step 5: 合入自定义补丁"
