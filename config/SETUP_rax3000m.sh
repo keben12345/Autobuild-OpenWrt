@@ -81,7 +81,7 @@ function task_step_4() {
     geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
     cd $GITHUB_WORKSPACE/clash-core/dev/smart
-    gunzip -c clash-linux-arm64.tar.gz > $core_path/clash_meta
+    tar -xzf clash-linux-arm64.tar.gz -O > "$core_path/clash_meta"
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $geo_path/GeoIP.dat
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $geo_path/GeoSite.dat
     chmod +x $core_path/clash*
