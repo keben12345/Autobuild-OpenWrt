@@ -46,7 +46,6 @@ function task_step_2() {
     sed -i '1i src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
     #sed -i '1i src-git jell https://github.com/kenzok8/jell' feeds.conf.default
     sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
-    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
     ./scripts/feeds update -a
     echo "✔ [步骤 2] 添加feeds源 执行完毕。"
 }
@@ -57,6 +56,10 @@ function task_step_3() {
     echo "正在执行 [步骤 3]: 添加额外软件包，并执行 feeds install和feeds install..."
     cd $GITHUB_WORKSPACE/openwrt
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
+    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
+    git clone -b patch/devnakx https://github.com/chenmozhijin/turboacc $GITHUB_WORKSPACE/patch
+    cp -f $GITHUB_WORKSPACE/patch/hack-6.12/952-add-net-conntrack-events-support-multiple-registrant.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-6.12/952-add-net-conntrack-events-support-multiple-registrant.patch
+
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
     #rm -rf feeds/smpackage/v2ray-geodata
     #git clone --depth 1 https://github.com/sbwml/v2ray-geodata feeds/smpackage/v2ray-geodata
@@ -98,21 +101,15 @@ function task_step_5() {
     git config --global user.email "xiaouex@live.com"
     # 添加上游仓库（fork 源）
     UPSTREAM_URL_1="https://github.com/nasbdh9/openwrt"
-    UPSTREAM_URL_2="https://github.com/devnakx/turboacc"
     UPSTREAM_REMOTE1="upstream-temp1"
-    UPSTREAM_REMOTE2="upstream-temp2"
     # 添加临时远程
     git remote add "$UPSTREAM_REMOTE1" "$UPSTREAM_URL_1"
-    git remote add "$UPSTREAM_REMOTE2" "$UPSTREAM_URL_2"
     # 获取上游提交
     git fetch "$UPSTREAM_REMOTE1" 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89  #添加BBR3
-    git fetch "$UPSTREAM_REMOTE2" b2e8ef848a68ad51e234e17040ff82a21629fa0f  #临时修复turboacc编译
     # Cherry-pick 两个 commit
     git cherry-pick 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89
-    git cherry-pick b2e8ef848a68ad51e234e17040ff82a21629fa0f
     # 删除临时远程
     git remote remove "$UPSTREAM_REMOTE1"
-    git remote remove "$UPSTREAM_REMOTE2"
     #Add BORE Scheduler
     git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
