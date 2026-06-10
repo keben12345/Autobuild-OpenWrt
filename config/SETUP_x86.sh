@@ -57,7 +57,7 @@ function task_step_3() {
     cd $GITHUB_WORKSPACE/openwrt
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
     curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
-    git clone -b patch/devnakx https://github.com/chenmozhijin/turboacc $GITHUB_WORKSPACE/patch
+    git clone -b package https://github.com/devnakx/turboacc $GITHUB_WORKSPACE/patch
     cp -f $GITHUB_WORKSPACE/patch/hack-6.12/952-add-net-conntrack-events-support-multiple-registrant.patch $GITHUB_WORKSPACE/openwrt/target/linux/generic/hack-6.12/952-add-net-conntrack-events-support-multiple-registrant.patch
 
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
