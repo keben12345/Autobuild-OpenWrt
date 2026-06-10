@@ -102,8 +102,8 @@ function task_step_5() {
     UPSTREAM_REMOTE1="upstream-temp1"
     UPSTREAM_REMOTE2="upstream-temp2"
     # 添加临时远程
-    git remote add "$UPSTREAM_REMOTE1" "$UPSTREAM_URL1"
-    git remote add "$UPSTREAM_REMOTE2" "$UPSTREAM_URL2"
+    git remote add "$UPSTREAM_REMOTE1" "$UPSTREAM_URL_1"
+    git remote add "$UPSTREAM_REMOTE2" "$UPSTREAM_URL_2"
     # 获取上游提交
     git fetch "$UPSTREAM_REMOTE1" 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89  #添加BBR3
     git fetch "$UPSTREAM_REMOTE2" b2e8ef848a68ad51e234e17040ff82a21629fa0f  #临时修复turboacc编译
