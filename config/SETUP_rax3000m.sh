@@ -128,10 +128,11 @@ function task_step_6() {
     mv config/rax3000m/.config openwrt/.config
     cd $GITHUB_WORKSPACE/openwrt
     #修改默认主题
-    sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/collections/luci/Makefile
+    sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/modules/luci-base/root/etc/config/luci
+
     #修正连接数（by ベ七秒鱼ベ）
     sed -i '/will not survive a reimage/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
-
+    
     sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
     sed -i 's/ImmortalWrt/MineRouter/g' package/base-files/files/bin/config_generate
 

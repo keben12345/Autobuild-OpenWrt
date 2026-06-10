@@ -79,7 +79,7 @@ function task_step_4() {
     geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
     cd $GITHUB_WORKSPACE/clash-core/dev/smart
-    gunzip -c clash-linux-amd64-v2.tar.gz > $core_path/clash_meta
+    tar -xzf clash-linux-amd64.tar.gz -O > "$core_path/clash_meta"
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $geo_path/GeoIP.dat
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $geo_path/GeoSite.dat
     chmod +x $core_path/clash*
@@ -97,17 +97,22 @@ function task_step_5() {
     git config --global user.name "xiaouex"
     git config --global user.email "xiaouex@live.com"
     # 添加上游仓库（fork 源）
-    UPSTREAM_URL="https://github.com/nasbdh9/openwrt"
-    UPSTREAM_REMOTE="upstream-temp"
+    UPSTREAM_URL_1="https://github.com/nasbdh9/openwrt"
+    UPSTREAM_URL_2="https://github.com/devnakx/turboacc"
+    UPSTREAM_REMOTE1="upstream-temp1"
+    UPSTREAM_REMOTE2="upstream-temp2"
     # 添加临时远程
-    git remote add "$UPSTREAM_REMOTE" "$UPSTREAM_URL"
+    git remote add "$UPSTREAM_REMOTE1" "$UPSTREAM_URL1"
+    git remote add "$UPSTREAM_REMOTE2" "$UPSTREAM_URL2"
     # 获取上游提交
-    git fetch "$UPSTREAM_REMOTE" 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89
+    git fetch "$UPSTREAM_REMOTE1" 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89  #添加BBR3
+    git fetch "$UPSTREAM_REMOTE2" b2e8ef848a68ad51e234e17040ff82a21629fa0f  #临时修复turboacc编译
     # Cherry-pick 两个 commit
     git cherry-pick 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89
+    git cheery-pick b2e8ef848a68ad51e234e17040ff82a21629fa0f
     # 删除临时远程
-    git remote remove "$UPSTREAM_REMOTE"
-
+    git remote remove "$UPSTREAM_REMOTE1"
+    git remote remove "$UPSTREAM_REMOTE2"
     #Add BORE Scheduler
     git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.12-bore/*.patch target/linux/generic/hack-6.12
@@ -125,7 +130,7 @@ function task_step_6() {
     mv config/x86/.config openwrt/.config
     cd $GITHUB_WORKSPACE/openwrt
     #修改默认主题
-    sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+    sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/modules/luci-base/root/etc/config/luci
     #修正连接数（by ベ七秒鱼ベ）
     sed -i '/will not survive a reimage/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
 
