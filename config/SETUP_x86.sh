@@ -109,7 +109,7 @@ function task_step_5() {
     git fetch "$UPSTREAM_REMOTE2" b2e8ef848a68ad51e234e17040ff82a21629fa0f  #临时修复turboacc编译
     # Cherry-pick 两个 commit
     git cherry-pick 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89
-    git cheery-pick b2e8ef848a68ad51e234e17040ff82a21629fa0f
+    git cherry-pick b2e8ef848a68ad51e234e17040ff82a21629fa0f
     # 删除临时远程
     git remote remove "$UPSTREAM_REMOTE1"
     git remote remove "$UPSTREAM_REMOTE2"
