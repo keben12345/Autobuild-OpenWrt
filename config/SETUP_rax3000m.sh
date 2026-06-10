@@ -56,7 +56,7 @@ function task_step_3() {
     cd $GITHUB_WORKSPACE/openwrt
     #git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
 
-    #rm -rf feeds/smpackage/luci-app-smartdns
+    rm -rf feeds/smpackage/luci-app-smartdns
     git clone --depth 1 https://github.com/pymumu/luci-app-smartdns feeds/smpackage/luci-app-smartdns
     sed -i 's/DEPENDS:=+i386:libatomic +libopenssl/DEPENDS:=+i386:libatomic +libopenssl +zlib/g' feeds/smpackage/smartdns/Makefile
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
