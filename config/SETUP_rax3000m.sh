@@ -72,7 +72,6 @@ function task_step_3() {
 function task_step_4() {
     echo "正在执行 [步骤 4]: 添加mihomo smart内核..."
     cd $GITHUB_WORKSPACE
-    git clone -b core https://github.com/vernesong/OpenClash clash-core
     
     cd $GITHUB_WORKSPACE
     echo -e "预置Clash内核"
@@ -80,8 +79,11 @@ function task_step_4() {
     core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
     geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
-    cd $GITHUB_WORKSPACE/clash-core/dev/smart
-    tar -xzf clash-linux-arm64.tar.gz -O > "$core_path/clash_meta"
+    curl -L -o $core_path/clash-linux-arm64.tar.gz \
+    https://github.com/vernesong/OpenClash/raw/core/dev/smart/clash-linux-arm64.tar.gz
+
+    tar -zxvf clash-linux-amd64.tar.gz -O > "$core_path/clash_meta"
+
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $geo_path/GeoIP.dat
     wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $geo_path/GeoSite.dat
     chmod +x $core_path/clash*
