@@ -16,7 +16,7 @@ set -euo pipefail
 WORK_DIR="/workdir"
 REPO_DIR="$WORK_DIR/openwrt"
 readonly REPO_URL="https://github.com/immortalwrt/immortalwrt"
-readonly REPO_BRANCH="master"
+readonly REPO_BRANCH="openwrt-25.12"
 # ==========================================
 # 分函数定义 (Sub-functions)
 # ==========================================
