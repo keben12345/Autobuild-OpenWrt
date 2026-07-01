@@ -79,7 +79,7 @@ function task_step_4() {
     core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
     geo_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
-    curl -L -o $core_path/clash-linux-arm64.tar.gz \
+    curl -L -o $GITHUB_WORKSPACE/clash-linux-arm64.tar.gz \
     https://github.com/vernesong/OpenClash/raw/core/dev/smart/clash-linux-arm64.tar.gz
 
     tar -zxvf clash-linux-arm64.tar.gz -O > "$core_path/clash_meta"
