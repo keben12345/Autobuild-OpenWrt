@@ -16,7 +16,7 @@ set -euo pipefail
 WORK_DIR="/workdir"
 REPO_DIR="$WORK_DIR/openwrt"
 readonly REPO_URL="https://github.com/immortalwrt/immortalwrt"
-readonly REPO_BRANCH="openwrt-25.12"
+readonly REPO_BRANCH="master"
 # ==========================================
 # 分函数定义 (Sub-functions)
 # ==========================================
@@ -56,7 +56,7 @@ function task_step_3() {
     echo "正在执行 [步骤 3]: 添加额外软件包，并执行 feeds install和feeds install..."
     cd $GITHUB_WORKSPACE/openwrt
     git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
-    curl -sSL https://raw.githubusercontent.com/mufeng05/turboacc/main/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh    
+    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe   
     
 
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
