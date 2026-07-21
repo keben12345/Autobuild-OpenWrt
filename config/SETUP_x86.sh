@@ -115,19 +115,12 @@ function task_step_6() {
     #修正连接数（by ベ七秒鱼ベ）
     sed -i '/will not survive a reimage/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
 
-    echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.12
-    echo 'CONFIG_SCHED_HRTICK=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_SCHED_AUTOGROUP=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_PREEMPT_VOLUNTARY=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_HZ_1000=y' >> target/linux/x86/config-6.12
-
-    echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
-    echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/mediatek/filogic/config-6.12
-    echo 'CONFIG_SCHED_HRTICK=y' >> target/linux/mediatek/filogic/config-6.12
-    echo 'CONFIG_SCHED_AUTOGROUP=y' >> target/linux/mediatek/filogic/config-6.12
-    echo 'CONFIG_PREEMPT_VOLUNTARY=y' >> target/linux/mediatek/filogic/config-6.12
-    echo 'CONFIG_HZ_1000=y' >> target/linux/mediatek/filogic/config-6.12
+    echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.18
+    echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.18
+    echo 'CONFIG_SCHED_HRTICK=y' >> target/linux/x86/config-6.18
+    echo 'CONFIG_SCHED_AUTOGROUP=y' >> target/linux/x86/config-6.18
+    echo 'CONFIG_PREEMPT_VOLUNTARY=y' >> target/linux/x86/config-6.18
+    echo 'CONFIG_HZ_1000=y' >> target/linux/x86/config-6.18
     echo "✔ [步骤 6] 编译前最终配置调整 执行完毕。"
 }
 
