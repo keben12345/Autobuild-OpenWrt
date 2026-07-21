@@ -93,29 +93,13 @@ function task_step_4() {
 # 分函数 5：合入自定义补丁
 function task_step_5() {
     echo "正在执行 [步骤 5]: 合入自定义补丁..."
-    cd $GITHUB_WORKSPACE/openwrt
-    #Add BBR V3
-
-    # 配置 Git 用户信息（GitHub Actions 中必需）
-    git config --global user.name "xiaouex"
-    git config --global user.email "xiaouex@live.com"
-    # 添加上游仓库（fork 源）
-    UPSTREAM_URL_1="https://github.com/nasbdh9/openwrt"
-    UPSTREAM_REMOTE1="upstream-temp1"
-    # 添加临时远程
-    git remote add "$UPSTREAM_REMOTE1" "$UPSTREAM_URL_1"
-    # 获取上游提交
-    git fetch "$UPSTREAM_REMOTE1" 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89  #添加BBR3
-    # Cherry-pick 两个 commit
-    git cherry-pick 94d8192c17b99ff5bc3975c00e2ed7079f6e5b89
-    # 删除临时远程
-    git remote remove "$UPSTREAM_REMOTE1"
     #Add BORE Scheduler
     git clone -b main https://github.com/firelzrd/bore-scheduler $GITHUB_WORKSPACE/config/files/BORE
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/stable/linux-6.18-bore/*.patch target/linux/generic/hack-6.18
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/additions/*.patch target/linux/generic/pending-6.18
     rm -rf $GITHUB_WORKSPACE/config/files/BORE
-    
+    #Add bbr3
+    cp $GITHUB_WORKSPACE/config/files/config/files/601-tcp_bbr-v3-update-TCP-bbr-congestion-control-module-.patch target/linux/generic/pending-6.18
     echo "✔ [步骤 5] 合入自定义补丁 执行完毕。"
 }
 
