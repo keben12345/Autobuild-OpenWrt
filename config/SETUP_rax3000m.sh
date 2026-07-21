@@ -138,13 +138,6 @@ function task_step_6() {
     sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
     sed -i 's/ImmortalWrt/MineRouter/g' package/base-files/files/bin/config_generate
 
-    echo 'CONFIG_SCHED_BORE=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/x86/config-6.12
-    echo 'CONFIG_SCHED_HRTICK=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_SCHED_AUTOGROUP=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_PREEMPT_VOLUNTARY=y' >> target/linux/x86/config-6.12
-    echo 'CONFIG_HZ_1000=y' >> target/linux/x86/config-6.12
-
     echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
     echo 'CONFIG_MIN_BASE_SLICE_NS=2000000' >> target/linux/mediatek/filogic/config-6.12
     echo 'CONFIG_SCHED_HRTICK=y' >> target/linux/mediatek/filogic/config-6.12
