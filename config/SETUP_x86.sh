@@ -106,11 +106,9 @@ function task_step_5() {
 #分函数 6：编译前最终配置调整
 function task_step_6() {
     echo "正在执行 [步骤 6]: 编译前最终配置调整..."
-    cd $GITHUB_WORKSPACE/openwrt
-    sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
-    cd $GITHUB_WORKSPACE
     mv config/x86/.config openwrt/.config
     cd $GITHUB_WORKSPACE/openwrt
+    sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
     #修改默认主题
     sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/modules/luci-base/root/etc/config/luci
     #修正连接数（by ベ七秒鱼ベ）
