@@ -99,7 +99,7 @@ function task_step_5() {
     cp $GITHUB_WORKSPACE/config/files/BORE/patches/additions/*.patch openwrt/target/linux/generic/pending-6.18
     rm -rf $GITHUB_WORKSPACE/config/files/BORE
     #Add bbr3
-    cp $GITHUB_WORKSPACE/config/files/config/files/601-tcp_bbr-v3-update-TCP-bbr-congestion-control-module-.patch openwrt/target/linux/generic/pending-6.18
+    cp $GITHUB_WORKSPACE/config/files/601-tcp_bbr-v3-update-TCP-bbr-congestion-control-module-.patch openwrt/target/linux/generic/pending-6.18
     echo "✔ [步骤 5] 合入自定义补丁 执行完毕。"
 }
 
