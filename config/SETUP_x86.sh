@@ -106,6 +106,7 @@ function task_step_5() {
 #分函数 6：编译前最终配置调整
 function task_step_6() {
     echo "正在执行 [步骤 6]: 编译前最终配置调整..."
+    cd $GITHUB_WORKSPACE/openwrt
     sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
     cd $GITHUB_WORKSPACE
     mv config/x86/.config openwrt/.config
