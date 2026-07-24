@@ -130,7 +130,7 @@ function task_step_6() {
     mv config/360t7/.config openwrt/.config
     cd $GITHUB_WORKSPACE/openwrt
     #修改默认主题
-    sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/modules/luci-base/root/etc/config/luci
+    # sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
     #修正连接数（by ベ七秒鱼ベ）
     sed -i '/will not survive a reimage/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
