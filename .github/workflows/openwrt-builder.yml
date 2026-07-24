@@ -7,13 +7,14 @@ on:
     inputs:
       
       DEVICE:
-        description: "选择你的设备（X86或rax3000m)"
+        description: "选择你的设备（X86,rax3000m,360t7)"
         required: true
         type: choice
         options:
           - 'x86'
           - 'rax3000m'
-        default: 'x86'
+          - '360t7' 
+        default: '360t7'
          
 env:
   UPLOAD_BIN_DIR: false
@@ -60,12 +61,15 @@ jobs:
             
     - name: 运行源码自定义脚本
       run: |
-        if [ "${{ inputs.DEVICE }}" = "x86" ]; then
-          chmod +x ./config/SETUP_x86.sh
-          ./config/SETUP_x86.sh -e
+        if [ "${{ inputs.DEVICE }}" = "360t7" ]; then
+          chmod +x ./config/SETUP_360t7.sh
+          ./config/SETUP_360t7.sh -e
         elif [ "${{ inputs.DEVICE }}" = "rax3000m" ]; then
           chmod +x ./config/SETUP_rax3000m.sh
-         ./config/SETUP_rax3000m.sh -e
+          ./config/SETUP_rax3000m.sh -e
+         elif [ "${{ inputs.DEVICE }}" = "x86" ]; then
+          chmod +x ./config/SETUP_x86.sh
+          ./config/SETUP_x86.sh -e
         fi
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
