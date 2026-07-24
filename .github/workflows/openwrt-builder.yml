@@ -128,16 +128,38 @@ jobs:
         [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
-    - name: 上传固件到release
+    - name: Create Release
       uses: softprops/action-gh-release@v2
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
 
+      with:
+
+        tag_name:
+          build-${{ github.run_number }}
+
+        name:
+          360T7 ImmortalWrt 25.12 build-${{ github.run_number }}
+
+        body: |
+
+          ImmortalWrt 25.12
+
+          Device:
+          Qihoo 360T7
+
+          Kernel:
+          6.12
+
+
+        files: |
+          release/*.itb
+          release/sha256sums
+
+
+      env:
+
+        GITHUB_TOKEN:
+          ${{ secrets.GITHUB_TOKEN }}
+          
     - name: 删除工作流
       uses: Mattraks/delete-workflow-runs@main
       with:
