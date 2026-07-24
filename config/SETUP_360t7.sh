@@ -135,7 +135,7 @@ function task_step_6() {
     #修正连接数（by ベ七秒鱼ベ）
     sed -i '/will not survive a reimage/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
     
-    sed -i 's/192.168.1.88/10.0.0.1/g' package/base-files/files/bin/config_generate
+    sed -i 's/192.168.1.1/192.168.1.88/g' package/base-files/files/bin/config_generate
     sed -i 's/ImmortalWrt/MineRouter/g' package/base-files/files/bin/config_generate
 
     echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
