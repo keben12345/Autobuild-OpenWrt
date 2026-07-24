@@ -56,9 +56,9 @@ function task_step_3() {
     cd $GITHUB_WORKSPACE/openwrt
     #git clone --depth 1 https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applications/luci-app-temp-status
 
-    rm -rf feeds/smpackage/luci-app-smartdns
-    git clone --depth 1 https://github.com/pymumu/luci-app-smartdns feeds/smpackage/luci-app-smartdns
-    sed -i 's/DEPENDS:=+i386:libatomic +libopenssl/DEPENDS:=+i386:libatomic +libopenssl +zlib/g' feeds/smpackage/smartdns/Makefile
+    # rm -rf feeds/smpackage/luci-app-smartdns
+    # git clone --depth 1 https://github.com/pymumu/luci-app-smartdns feeds/smpackage/luci-app-smartdns
+    # sed -i 's/DEPENDS:=+i386:libatomic +libopenssl/DEPENDS:=+i386:libatomic +libopenssl +zlib/g' feeds/smpackage/smartdns/Makefile
     #git clone --depth 1 https://github.com/DustReliant/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
     #rm -rf feeds/smpackage/v2ray-geodata
     #git clone --depth 1 https://github.com/sbwml/v2ray-geodata feeds/smpackage/v2ray-geodata
@@ -127,7 +127,7 @@ function task_step_6() {
     echo "正在执行 [步骤 6]: 编译前最终配置调整..."
     sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
     cd $GITHUB_WORKSPACE
-    mv config/rax3000m/.config openwrt/.config
+    mv config/360t7/.config openwrt/.config
     cd $GITHUB_WORKSPACE/openwrt
     #修改默认主题
     sed -i 's/luci-theme-bootstrap/luci-theme-material3/g' feeds/luci/modules/luci-base/root/etc/config/luci
@@ -135,7 +135,7 @@ function task_step_6() {
     #修正连接数（by ベ七秒鱼ベ）
     sed -i '/will not survive a reimage/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
     
-    sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+    sed -i 's/192.168.1.88/10.0.0.1/g' package/base-files/files/bin/config_generate
     sed -i 's/ImmortalWrt/MineRouter/g' package/base-files/files/bin/config_generate
 
     echo 'CONFIG_SCHED_BORE=y' >> target/linux/mediatek/filogic/config-6.12
