@@ -15,7 +15,9 @@ on:
           - 'rax3000m'
           - '360t7' 
         default: '360t7'
-         
+permissions:
+   contents: write
+      
 env:
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
@@ -148,7 +150,7 @@ jobs:
     - name: 删除过时release和标签
       uses: jay2610/delete-older-releases@1.0.0
       with:
-        repo: xiaouex/Autobuild-OpenWrt
+        repo: repo: ${{ github.repository }}
         keep_latest: 5
         delete_type: 'release'
         target_branch: 'lite-tset'
